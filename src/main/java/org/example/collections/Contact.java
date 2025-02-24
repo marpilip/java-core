@@ -3,10 +3,10 @@ package org.example.collections;
 import java.util.Objects;
 
 public class Contact {
-    private final String name;
-    private final String phone;
-    private final String email;
-    private final String group;
+    private String name;
+    private String phone;
+    private String email;
+    private String group;
 
     public Contact(String name, String phone, String email, String group) {
         this.name = name;
