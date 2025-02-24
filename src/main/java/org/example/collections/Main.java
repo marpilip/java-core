@@ -2,6 +2,7 @@ package org.example.collections;
 
 import org.example.collections.exceptions.ContactAlreadyExistsException;
 import org.example.collections.exceptions.ContactNotFoundException;
+import org.example.collections.exceptions.GroupNotFoundException;
 
 import java.util.Scanner;
 
@@ -66,7 +67,7 @@ public class Main {
                     default:
                         System.out.println("Неверная команда.");
                 }
-            } catch (ContactAlreadyExistsException | ContactNotFoundException e) {
+            } catch (ContactAlreadyExistsException | ContactNotFoundException | GroupNotFoundException e) {
                 System.out.println("Ошибка: " + e.getMessage());
             } catch (Exception e) {
                 System.out.println("Произошла непредвиденная ошибка: " + e.getMessage());

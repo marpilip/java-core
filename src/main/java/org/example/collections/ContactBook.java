@@ -2,6 +2,7 @@ package org.example.collections;
 
 import org.example.collections.exceptions.ContactAlreadyExistsException;
 import org.example.collections.exceptions.ContactNotFoundException;
+import org.example.collections.exceptions.GroupNotFoundException;
 
 import java.util.*;
 
@@ -64,11 +65,11 @@ public class ContactBook {
         throw new ContactNotFoundException("Контакт не найден: " + name);
     }
 
-    public void viewContactsByGroup(String group) throws ContactNotFoundException {
+    public void viewContactsByGroup(String group) throws GroupNotFoundException {
         List<Contact> contacts = groupMap.get(group);
 
         if (contacts == null || contacts.isEmpty()) {
-            throw new ContactNotFoundException("Группа не найдена или пуста: " + group);
+            throw new GroupNotFoundException("Группа не найдена или пуста: " + group);
         }
 
         Iterator<Contact> iterator = contacts.iterator();
