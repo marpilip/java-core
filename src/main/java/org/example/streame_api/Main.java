@@ -76,7 +76,7 @@ public class Main {
         // Задание 7
         List<Product> productsFromMarch15 = customers.stream()
                 .flatMap(customer -> customer.getOrders().stream())
-                .filter(order -> order.getDeliveryDate().isEqual(LocalDate.of(2021, 3, 15)))
+                .filter(order -> order.getOrderDate().isEqual(LocalDate.of(2021, 3, 15)))
                 .peek(order -> System.out.println("Order ID: " + order.getId()))
                 .flatMap(order -> order.getProducts().stream())
                 .toList();
@@ -118,26 +118,29 @@ public class Main {
         // Задание 11
         Map<Long, Integer> orderProductCount = customers.stream()
                 .flatMap(customer -> customer.getOrders().stream())
-                .collect(Collectors.toMap(Order::getId,
-                        order -> order.getProducts().size(),
-                        Integer::sum));
+                .collect(Collectors.toMap(
+                        Order::getId,
+                        order -> order.getProducts().size()));
 
         System.out.println("Order product count: " + orderProductCount);
 
         // Задание 12
-        Map<Customer, Set<Order>> customerOrdersMap = customers.stream()
-                .collect(Collectors.toMap(customer -> customer, Customer::getOrders));
+        Map<Customer, List<Order>> customerOrdersMap = customers.stream()
+                .collect(Collectors.toMap(
+                        customer -> customer,
+                        customer -> new ArrayList<>(customer.getOrders())));
 
         System.out.println("Customer orders map: " + customerOrdersMap);
 
         // Задание 13
-        Map<Order, BigDecimal> orderTotalMap = customers.stream()
+        Map<Order, Double> orderTotalMap = customers.stream()
                 .flatMap(customer -> customer.getOrders().stream())
                 .collect(Collectors.toMap(
                         order -> order,
                         order -> order.getProducts().stream()
                                 .map(Product::getPrice)
-                                .reduce(BigDecimal.ZERO, BigDecimal::add),
+                                .reduce(BigDecimal.ZERO, BigDecimal::add)
+                                .doubleValue(),
                         (existingValue, newValue) -> existingValue));
 
         System.out.println("Order total map: " + orderTotalMap);
